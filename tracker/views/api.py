@@ -119,6 +119,7 @@ bid_fields = {
         'biddependency',
         'total',
         'count',
+        'pinned',
     ],
     'speedrun': [
         'name',
