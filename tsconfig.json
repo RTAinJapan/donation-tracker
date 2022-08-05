@@ -9,15 +9,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "resolveJsonModule": true,
-    "baseUrl": "./bundles",
-    "paths": {
-      "@admin/*": ["./admin/*"],
-      "@common/*": ["./common/*"],
-      "@public/*": ["./public/*"],
-      "@tracker/*": ["./tracker/*"],
-      "@uikit/*": ["./uikit/*"]
-    }
+    "resolveJsonModule": true
   },
   "include": ["./bundles/**/*"]
 }

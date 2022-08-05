@@ -1,6 +1,5 @@
-import _ from 'lodash';
-
 import { Prize } from './PrizeTypes';
+import _ from 'lodash';
 
 /**
  * Returns the URL of an image to use when showing a Prize individually.

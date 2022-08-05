@@ -1,8 +1,6 @@
+import { fullKey, memoizeCallback } from '../../../../common/Util';
 import React, { useState } from 'react';
-
-import { Interview, InterviewFields } from '@common/Models';
-import { fullKey, memoizeCallback } from '@common/Util';
-
+import { Interview, InterviewFields } from '../../../../common/Models';
 import { RowProps } from '../Rows';
 
 const setStateCallback = memoizeCallback(

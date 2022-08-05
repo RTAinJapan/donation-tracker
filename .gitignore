@@ -9,6 +9,5 @@ build
 node_modules/
 dist/
 tracker/static/gen/
-geckodriver.log
 yarn-error.log
-test-results
+TEST*.xml

@@ -1,11 +1,11 @@
-import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 
 import drafts from './drafts';
-import dropdowns from './dropdowns';
 import models from './models';
-import singletons from './singletons';
 import status from './status';
+import dropdowns from './dropdowns';
+import singletons from './singletons';
 
 const createRootReducer = history =>
   combineReducers({

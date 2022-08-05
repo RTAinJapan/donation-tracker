@@ -1,7 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
 import ErrorList from './errorList';
+import { shallow } from 'enzyme';
+import React from 'react';
 
 describe('ErrorList', () => {
   it('displays nothing if given a nullish value', () => {

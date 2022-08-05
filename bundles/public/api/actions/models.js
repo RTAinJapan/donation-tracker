@@ -1,8 +1,7 @@
 import _ from 'lodash';
 
-import Endpoints from '@tracker/Endpoints';
-
 import HTTPUtil from '../../util/http';
+import Endpoints from '../../../tracker/Endpoints';
 
 function onModelStatusLoad(model) {
   return {
@@ -71,6 +70,7 @@ function loadModels(model, params, additive) {
       type: fetchModel,
     })
       .then(models => {
+        dispatch(onModelStatusSuccess(model));
         const action = additive ? onModelCollectionAdd : onModelCollectionReplace;
         dispatch(
           action(
@@ -84,13 +84,12 @@ function loadModels(model, params, additive) {
             }, []),
           ),
         );
-        dispatch(onModelStatusSuccess(model));
       })
       .catch(error => {
+        dispatch(onModelStatusError(model));
         if (!additive) {
           dispatch(onModelCollectionReplace(realModel, []));
         }
-        dispatch(onModelStatusError(model));
       });
   };
 }

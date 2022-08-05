@@ -1,5 +1,5 @@
-import CheckboxChecked from './icons/CheckboxChecked';
 import CheckboxOpen from './icons/CheckboxOpen';
+import CheckboxChecked from './icons/CheckboxChecked';
 import Exclamation from './icons/Exclamation';
 
 export const IconTypes = {

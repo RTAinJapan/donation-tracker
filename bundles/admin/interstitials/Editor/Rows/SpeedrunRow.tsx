@@ -1,9 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
-
-import { Run } from '@common/Models';
-
-import { RowProps } from '../Rows';
+import { RowProps } from '../Rows.js';
+import { Run } from '../../../../common/Models';
 
 export interface SpeedrunRowProps extends RowProps {
   item: Run;

@@ -1,11 +1,11 @@
-import { routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { routerMiddleware } from 'connected-react-router';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import freeze from '@public/util/freeze';
+import { createBrowserHistory } from 'history';
 
+import freeze from 'ui/public/util/freeze';
 import actions from './actions';
 import createRootReducer from './reducers';
 

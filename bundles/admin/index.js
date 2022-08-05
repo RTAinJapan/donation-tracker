@@ -1,18 +1,17 @@
 import React from 'react';
-import { ConnectedRouter } from 'connected-react-router';
-import { DndProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import ReactDOM from 'react-dom';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { Redirect, Route, Switch } from 'react-router';
 
-import Constants from '@common/Constants';
-import { createTrackerStore } from '@public/api';
-import ErrorBoundary from '@public/errorBoundary';
+import ErrorBoundary from 'ui/public/errorBoundary';
 
+import '../common/init';
 import App from './app';
-
-import '@common/init';
+import Constants from '../common/Constants';
+import { createTrackerStore } from '../public/api';
 
 window.AdminApp = function (props) {
   function redirect({ location }) {

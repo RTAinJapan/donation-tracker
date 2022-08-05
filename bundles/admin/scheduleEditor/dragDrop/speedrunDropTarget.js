@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
-
-import Constants from '@common/Constants';
+import Constants from '../../../common/Constants';
 
 class SpeedrunDropTarget extends React.Component {
   static propTypes = {

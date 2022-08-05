@@ -20,11 +20,7 @@ INSTALLED_APPS = [
     'mptt',
 ]
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'testdb.sqlite',
-        'OPTIONS': {'timeout': 5},
-    },
+    'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': 'testdb.sqlite',},
 }
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
@@ -43,7 +39,6 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
-                'django.template.context_processors.request',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
@@ -66,12 +61,3 @@ CACHES = {'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache',}
 ASGI_APPLICATION = 'tests.routing.application'
 CHANNEL_LAYERS = {'default': {'BACKEND': 'channels.layers.InMemoryChannelLayer'}}
 SWEEPSTAKES_URL = 'https://example.com/'
-TEST_OUTPUT_DIR = 'test-results'
-# uncomment this for some additional logging during testing
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {'console': {'level': 'DEBUG', 'class': 'logging.StreamHandler',},},
-#     'loggers': {'django': {'handlers': ['console'],},},
-#     'root': {'level': 'INFO'},
-# }

@@ -1,12 +1,10 @@
-import * as CurrencyUtils from '@public/util/currency';
-import * as HTTPUtils from '@public/util/http';
-import TimeUtils from '@public/util/TimeUtils';
-
-import { ActionTypes } from '@tracker/Action';
-import { SafeDispatch } from '@tracker/hooks/useDispatch';
-
-import Endpoints from '../Endpoints';
+import { ActionTypes } from '../Action';
+import { SafeDispatch } from '../hooks/useDispatch';
+import * as CurrencyUtils from '../../public/util/currency';
+import * as HTTPUtils from '../../public/util/http';
+import TimeUtils from '../../public/util/TimeUtils';
 import { Event, EventSearchFilter } from './EventTypes';
+import Endpoints from '../Endpoints';
 
 function eventFromAPIEvent({ pk, fields }: { pk: number; fields: { [field: string]: any } }): Event {
   return {

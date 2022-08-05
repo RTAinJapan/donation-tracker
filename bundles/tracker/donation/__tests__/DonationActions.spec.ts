@@ -1,5 +1,5 @@
-import { buildDonationPayload } from '../DonationActions';
 import { Donation } from '../DonationTypes';
+import { buildDonationPayload } from '../DonationActions';
 
 describe('DonationActions', () => {
   describe('buildDonationPayload', () => {

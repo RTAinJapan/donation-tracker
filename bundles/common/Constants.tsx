@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 export const DefaultConstants = {
   PRIVACY_POLICY_URL: '',
   SWEEPSTAKES_URL: '',
-  ANALYTICS_URL: '',
   API_ROOT: '',
   ADMIN_ROOT: '',
   STATIC_URL: '/static/',

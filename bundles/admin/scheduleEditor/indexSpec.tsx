@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
-import fetchMock from 'fetch-mock';
-import { Provider } from 'react-redux';
+import ScheduleEditor from './index';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-
-import ScheduleEditor from './index';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import fetchMock from 'fetch-mock';
 
 const mockStore = configureMockStore([thunk]);
 

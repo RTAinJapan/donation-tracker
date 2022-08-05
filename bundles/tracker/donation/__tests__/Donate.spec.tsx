@@ -1,9 +1,8 @@
 import * as React from 'react';
-
 import userEvent from '@testing-library/user-event';
-import * as EventDetailsActions from '@tracker/event_details/EventDetailsActions';
-import { createStore, fireEvent, render } from '@tracker/testing/test-utils';
+import { createStore, fireEvent, render } from '../../testing/test-utils';
 
+import * as EventDetailsActions from '../../event_details/EventDetailsActions';
 import Donate from '../components/Donate';
 
 const renderDonate = (store?: ReturnType<typeof createStore>) => {

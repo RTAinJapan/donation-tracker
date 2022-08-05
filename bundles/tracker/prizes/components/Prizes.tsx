@@ -1,25 +1,23 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 
-import { useConstants } from '@common/Constants';
-import TimeUtils from '@public/util/TimeUtils';
-import Anchor from '@uikit/Anchor';
-import Container from '@uikit/Container';
-import Header from '@uikit/Header';
-import LoadingDots from '@uikit/LoadingDots';
-import Text from '@uikit/Text';
-
-import * as EventActions from '@tracker/events/EventActions';
-import * as EventStore from '@tracker/events/EventStore';
-import useDispatch from '@tracker/hooks/useDispatch';
-import { StoreState } from '@tracker/Store';
-
+import TimeUtils from '../../../public/util/TimeUtils';
+import Container from '../../../uikit/Container';
+import Header from '../../../uikit/Header';
+import LoadingDots from '../../../uikit/LoadingDots';
+import * as EventActions from '../../events/EventActions';
+import * as EventStore from '../../events/EventStore';
+import useDispatch from '../../hooks/useDispatch';
+import { StoreState } from '../../Store';
 import * as PrizeActions from '../PrizeActions';
 import * as PrizeStore from '../PrizeStore';
-import { Prize } from '../PrizeTypes';
 import PrizeCard from './PrizeCard';
+import { Prize } from '../PrizeTypes';
 
 import styles from './Prizes.mod.css';
+import Text from '../../../uikit/Text';
+import Anchor from '../../../uikit/Anchor';
+import { useConstants } from '../../../common/Constants';
 
 // The limit of how many prizes should be included in sections that appear
 // above the All Prizes section. This generally avoids showing prizes multiple
@@ -71,12 +69,12 @@ const Prizes = (props: PrizesProps) => {
   React.useEffect(() => {
     setLoadingPrizes(true);
     dispatch(PrizeActions.fetchPrizes({ event: eventId })).finally(() => setLoadingPrizes(false));
-  }, [dispatch, eventId]);
+  }, [eventId]);
 
   React.useEffect(() => {
     if (event != null) return;
     dispatch(EventActions.fetchEvents({ id: eventId }));
-  }, [dispatch, event, eventId]);
+  }, [event, eventId]);
 
   if (event == null) {
     return (

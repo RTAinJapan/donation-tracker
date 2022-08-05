@@ -1,6 +1,5 @@
-import memoize from 'memoize-one';
-
 import { Ordered, Subordered } from './Models';
+import memoize from 'memoize-one';
 import { fullKey, isSubordered } from './Util';
 
 export const sortItems = memoize((models: Ordered[]) => {

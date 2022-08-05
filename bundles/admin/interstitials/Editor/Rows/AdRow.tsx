@@ -1,8 +1,6 @@
 import React from 'react';
-
-import { Ad } from '@common/Models';
-
-import { RowProps } from '../Rows';
+import { RowProps } from '../Rows.js';
+import { Ad } from '../../../../common/Models';
 
 export interface AdRowProps extends RowProps {
   item: Ad;

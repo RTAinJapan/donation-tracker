@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-
-import { Ad, Interview, Model, ModelFields, Run } from '@common/Models';
-import { fullKey, memoizeCallback } from '@common/Util';
-
+import { Ad, Interview, Model, ModelFields, Run } from '../../../common/Models';
+import { fullKey, memoizeCallback } from '../../../common/Util';
 import Row from './Rows';
 
 const cachedCallback = memoizeCallback(

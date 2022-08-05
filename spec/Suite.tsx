@@ -1,14 +1,12 @@
 import * as React from 'react';
 import * as Enzyme from 'enzyme';
 import { mount, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { Provider } from 'react-redux';
 import { AnyAction, applyMiddleware, createStore, Store } from 'redux';
-
-import { setAPIRoot } from '../bundles/tracker/Endpoints';
+import Adapter from 'enzyme-adapter-react-16';
 import { combinedReducer, StoreState } from '../bundles/tracker/Store';
-
 import './matchers';
+import { Provider } from 'react-redux';
+import { setAPIRoot } from '../bundles/tracker/Endpoints';
 
 let componentFakes: any[] = [];
 let oldCreateElement: typeof React.createElement;

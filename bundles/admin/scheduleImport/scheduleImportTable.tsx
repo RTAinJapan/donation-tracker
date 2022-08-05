@@ -1,7 +1,6 @@
-import React, { ReactFragment } from 'react';
 import moment from 'moment';
 import { OengusConnection, OengusRunLine, OengusSchedule } from 'oengus-api';
-
+import React, { ReactFragment } from 'react';
 import styles from './scheduleImportTable.mod.css';
 
 type Props = {

@@ -1,6 +1,5 @@
-import { DateTime } from '@public/util/TimeUtils';
-
-import { Run } from '@tracker/runs/RunTypes';
+import { DateTime } from '../../public/util/TimeUtils';
+import { Run } from '../runs/RunTypes';
 
 export type PrizeCategory = {
   name: string;

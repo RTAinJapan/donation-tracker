@@ -54,7 +54,7 @@ const Checkbox = (props: CheckboxProps) => {
 
   const handleClick = React.useCallback(() => {
     onChange(!checked);
-  }, [checked, onChange]);
+  }, [checked]);
 
   return (
     <Clickable

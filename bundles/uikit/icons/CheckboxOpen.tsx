@@ -1,7 +1,6 @@
 import * as React from 'react';
-
-import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquare } from '@fortawesome/free-regular-svg-icons';
 
 const CheckboxOpen = (props: any) => {
   return <FontAwesomeIcon {...props} icon={faSquare} />;

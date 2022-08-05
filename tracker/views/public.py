@@ -67,7 +67,7 @@ def index(request, event=None):
     )
 
     agg = donations.aggregate(
-        total=Cast(Coalesce(Sum('amount'), 0), output_field=FloatField()),
+        amount=Cast(Coalesce(Sum('amount'), 0), output_field=FloatField()),
         count=Count('amount'),
         max=Cast(Coalesce(Max('amount'), 0), output_field=FloatField()),
         avg=Cast(Coalesce(Avg('amount'), 0), output_field=FloatField()),
@@ -86,8 +86,6 @@ def index(request, event=None):
     }
 
     if 'json' in request.GET:
-        agg['amount'] = agg['total']  # api compatibility
-        del agg['total']
         return HttpResponse(
             json.dumps({'count': count, 'agg': agg}, ensure_ascii=False,),
             content_type='application/json;charset=utf-8',
@@ -141,13 +139,8 @@ def bidindex(request, event=None):
             {'pattern': 'tracker:bidindex', 'subheading': 'Bids'},
         )
 
-    # noinspection PyProtectedMember
-    bids = (
-        Bid.objects.filter(state__in=('OPENED', 'CLOSED'), event=event)
-        .annotate(speedrun_name=F('speedrun__name'), event_name=F('event__name'))
-        .order_by(
-            *Bid._meta.ordering
-        )  # Django 3.x erases the default ordering after an annotate
+    bids = Bid.objects.filter(state__in=('OPENED', 'CLOSED'), event=event).annotate(
+        speedrun_name=F('speedrun__name'), event_name=F('event__name')
     )
 
     toplevel = [b for b in bids if b.parent_id is None]
@@ -181,15 +174,11 @@ def bid_detail(request, pk):
         )
         if not bid:
             raise Bid.DoesNotExist
-        # noinspection PyProtectedMember
         bid_info = get_bid_info(
             bid,
             (bid.get_ancestors() | bid.get_descendants())
             .filter(state__in=('OPENED', 'CLOSED'))
-            .annotate(speedrun_name=F('speedrun__name'), event_name=F('event__name'))
-            .order_by(
-                *Bid._meta.ordering
-            ),  # Django 3.x erases the default ordering after an annotate
+            .annotate(speedrun_name=F('speedrun__name'), event_name=F('event__name')),
         )
 
         page = request.GET.get('page', 1)
@@ -337,7 +326,7 @@ def donationindex(request, event=None):
     donations = views_common.fixorder(donations, orderdict, sort, order)
 
     agg = donations.aggregate(
-        total=Sum('amount'),
+        amount=Sum('amount'),
         count=Count('amount'),
         max=Max('amount'),
         avg=Avg('amount'),
@@ -345,7 +334,6 @@ def donationindex(request, event=None):
     agg['median'] = util.median(donations, 'amount')
     donations = donations.select_related('donor')
     pages = paginator.Paginator(donations, 50)
-    # TODO: these should really be errors
     try:
         pageinfo = pages.page(page)
     except paginator.PageNotAnInteger:
@@ -417,10 +405,6 @@ def runindex(request, event=None):
 
     runs = filters.run_model_query('run', searchParams)
     runs = runs.annotate(hasbids=Sum('bids'))
-    # noinspection PyProtectedMember
-    runs = runs.order_by(
-        *SpeedRun._meta.ordering
-    )  # Django 3.x erases the default ordering after an annotate
 
     return views_common.tracker_response(
         request, 'tracker/runindex.html', {'runs': runs, 'event': event},

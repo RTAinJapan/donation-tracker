@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
-import { ActionFor, ActionTypes } from '@tracker/Action';
-
+import { ActionFor, ActionTypes } from '../Action';
 import { Prize, PrizeAction } from './PrizeTypes';
 
 type PrizesState = {

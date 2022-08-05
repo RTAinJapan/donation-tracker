@@ -1,9 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
-import { DefaultConstants } from '@common/Constants';
-
 import Spinner from './spinner';
+import { shallow } from 'enzyme';
+import React from 'react';
+import { DefaultConstants } from '../common/Constants';
 
 describe('Spinner', () => {
   let subject: ReturnType<typeof shallow>;

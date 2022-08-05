@@ -1,7 +1,6 @@
 from datetime import datetime
 from decimal import Decimal
 from gettext import gettext as _
-import logging
 
 import mptt.models
 import pytz
@@ -12,7 +11,6 @@ from django.db.models import signals, Sum, Q
 from django.dispatch import receiver
 from django.urls import reverse
 
-from tracker.analytics import analytics, AnalyticsEventTypes
 from tracker.validators import positive, nonzero
 
 __all__ = [
@@ -20,8 +18,6 @@ __all__ = [
     'DonationBid',
     'BidSuggestion',
 ]
-
-logger = logging.getLogger(__name__)
 
 
 class BidManager(models.Manager):
@@ -122,9 +118,6 @@ class Bid(mptt.models.MPTTModel):
         decimal_places=2, max_digits=20, editable=False, default=Decimal('0.00')
     )
     count = models.IntegerField(editable=False)
-    pinned = models.BooleanField(
-        default=False, help_text='Will always show up in the current feeds'
-    )
 
     class Meta:
         app_label = 'tracker'
@@ -266,22 +259,6 @@ class Bid(mptt.models.MPTTModel):
             self.event = self.speedrun.event
         if self.state in ['OPENED', 'CLOSED'] and not self.revealedtime:
             self.revealedtime = datetime.utcnow().replace(tzinfo=pytz.utc)
-            analytics.track(
-                AnalyticsEventTypes.INCENTIVE_OPENED,
-                {
-                    'timestamp': self.revealedtime,
-                    'bid_id': self.id,
-                    'event_id': self.event_id,
-                    'run_id': self.speedrun_id,
-                    'parent_id': self.parent_id,
-                    'name': self.name,
-                    'goal': self.goal,
-                    'is_target': self.istarget,
-                    'allow_user_options': self.allowuseroptions,
-                    'max_option_length': self.option_max_length,
-                    'dependent_on_id': self.biddependency,
-                },
-            )
         if self.biddependency:
             self.event = self.biddependency.event
             if not self.speedrun:
@@ -289,7 +266,7 @@ class Bid(mptt.models.MPTTModel):
         self.update_total()
         super(Bid, self).save(*args, **kwargs)
         if self.pk:
-            for option in self.get_children():
+            for option in self.get_descendants():
                 if option.check_parent():
                     option.save(skip_parent=True)
         if self.parent and not skip_parent:
@@ -305,9 +282,6 @@ class Bid(mptt.models.MPTTModel):
             changed = True
         if self.state not in ['PENDING', 'DENIED'] and self.state != self.parent.state:
             self.state = self.parent.state
-            changed = True
-        if self.pinned != self.parent.pinned:
-            self.pinned = self.parent.pinned
             changed = True
         return changed
 
@@ -329,7 +303,7 @@ class Bid(mptt.models.MPTTModel):
             self.count = self.bids.filter(
                 donation__transactionstate='COMPLETED'
             ).count()
-            # auto close and unpin this if it's a challenge with no children and the goal's been met
+            # auto close this if it's a challenge with no children and the goal's been met
             if (
                 self.goal
                 and self.state == 'OPENED'
@@ -337,25 +311,6 @@ class Bid(mptt.models.MPTTModel):
                 and self.istarget
             ):
                 self.state = 'CLOSED'
-                self.pinned = False
-                analytics.track(
-                    AnalyticsEventTypes.INCENTIVE_MET,
-                    {
-                        'timestamp': datetime.utcnow(),
-                        'bid_id': self.pk,
-                        'event_id': self.event_id,
-                        'run_id': self.speedrun_id,
-                        'parent_id': self.parent_id,
-                        'name': self.name,
-                        'goal': self.goal,
-                        'is_target': self.istarget,
-                        'total_raised': self.total,
-                        'unique_donations': self.count,
-                        'allow_user_options': self.allowuseroptions,
-                        'max_option_length': self.option_max_length,
-                        'dependent_on_id': self.biddependency,
-                    },
-                )
         else:
             options = self.options.exclude(state__in=('DENIED', 'PENDING')).aggregate(
                 Sum('total'), Sum('count')
@@ -428,31 +383,6 @@ class DonationBid(models.Model):
                         if dependentBid.state == 'HIDDEN':
                             dependentBid.state = 'OPENED'
                             dependentBid.save()
-
-    def save(self, *args, **kwargs):
-        is_creating = self.pk is None
-        super(DonationBid, self).save(*args, **kwargs)
-        # TODO: This should move to `donateviews.process_form` to track bids that
-        # are created as part of the original donation, and a separate admin view
-        # to track bids applied manually by a donation processor.
-        if is_creating:
-            analytics.track(
-                AnalyticsEventTypes.BID_APPLIED,
-                {
-                    'timestamp': datetime.utcnow(),
-                    'event_id': self.donation.event_id,
-                    'incentive_id': self.bid.id,
-                    'parent_id': self.bid.parent_id,
-                    'donation_id': self.donation_id,
-                    'amount': self.amount,
-                    'total_donation_amount': self.donation.amount,
-                    'incentive_goal_amount': self.bid.goal,
-                    'incentive_current_amount': self.bid.total,
-                    # TODO: Set this to an actual value when tracking moves
-                    # to the separate view functions.
-                    'added_manually': False,
-                },
-            )
 
     @property
     def speedrun(self):

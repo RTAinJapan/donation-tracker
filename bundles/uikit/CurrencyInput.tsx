@@ -42,7 +42,7 @@ const CurrencyInput = (props: CurrencyInputProps) => {
     (_event, value) => {
       onChange != null && onChange(value, name);
     },
-    [name, onChange],
+    [name, value, onChange],
   );
 
   return (

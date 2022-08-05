@@ -1,19 +1,17 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
-import * as CurrencyUtils from '@public/util/currency';
-import TimeUtils from '@public/util/TimeUtils';
-import Button from '@uikit/Button';
-import Clickable from '@uikit/Clickable';
-import Header from '@uikit/Header';
-import Text from '@uikit/Text';
-
-import RouterUtils, { Routes } from '@tracker/router/RouterUtils';
-import { StoreState } from '@tracker/Store';
-
-import getPrizeRelativeAvailability from '../getPrizeRelativeAvailability';
+import * as CurrencyUtils from '../../../public/util/currency';
+import TimeUtils from '../../../public/util/TimeUtils';
+import Button from '../../../uikit/Button';
+import Clickable from '../../../uikit/Clickable';
+import Header from '../../../uikit/Header';
+import Text from '../../../uikit/Text';
+import { StoreState } from '../../Store';
+import RouterUtils, { Routes } from '../../router/RouterUtils';
 import * as PrizeStore from '../PrizeStore';
+import getPrizeRelativeAvailability from '../getPrizeRelativeAvailability';
 import * as PrizeUtils from '../PrizeUtils';
 
 import styles from './PrizeCard.mod.css';

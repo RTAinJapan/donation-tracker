@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { isValidationError, ServerError, ValidationError } from './Server';
 
 interface ErrorDisplayProps {
