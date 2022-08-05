@@ -8037,7 +8037,7 @@ move-concurrently@^1.0.1:
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
-  integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
+  integrity sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==
 
 ms@2.1.1:
   version "2.1.1"
@@ -8410,10 +8410,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-oengus-api@^0.9.20:
-  version "0.9.20"
-  resolved "https://registry.yarnpkg.com/oengus-api/-/oengus-api-0.9.20.tgz#2cc6281eeba6df02171fc6e609126999798cf2e3"
-  integrity sha512-rSyk52FtAoxiaPTLtgrFCery8urBgOQ8A5kOw2z8PJ1ufEZAG3njKw7uTJcR/figRcDp46GdT3PUEankhkuNkA==
+oengus-api@0.9.21:
+  version "0.9.21"
+  resolved "https://registry.yarnpkg.com/oengus-api/-/oengus-api-0.9.21.tgz#b56bcbe2733a6ae2af2ebcbb6949918202b1d940"
+  integrity sha512-Xx0NV0JP7XB9TfGhVB45+3yiAKdWTdBlfk5UsW9+FCVSs57m8NPXIu2vlbgF5oSAx27ldTHAf76ZeLxdBc+RrA==
   dependencies:
     axios "^0.19.2"
 
