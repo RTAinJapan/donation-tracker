@@ -56,6 +56,11 @@ urlpatterns = [
         donateviews.paypal_return_msf2022w,
         name='paypal_return_msf2022w',
     ),
+    path(
+        'paypal_return/msf2023s',
+        donateviews.paypal_return_msf2023s,
+        name='paypal_return_msf2023s',
+    ),
     path('paypal_cancel/', donateviews.paypal_cancel, name='paypal_cancel'),
     path('ipn/', donateviews.ipn, name='ipn'),
     path('analytics/', analyticsviews.post_analytics, name='analytics'),
