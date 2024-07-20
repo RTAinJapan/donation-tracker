@@ -22,8 +22,8 @@ export const ScheduleImportTable = ({ schedule }: Props) => {
   } => {
     return {
       twitter: connections.find(conn => conn.platform === 'TWITTER')?.username,
-      nico: connections.find(conn => conn.platform === 'TWITTER')?.username,
-      twitch: connections.find(conn => conn.platform === 'TWITTER')?.username,
+      nico: connections.find(conn => conn.platform === 'NICO')?.username,
+      twitch: connections.find(conn => conn.platform === 'TWITCH')?.username,
     };
   };
 
@@ -49,7 +49,7 @@ export const ScheduleImportTable = ({ schedule }: Props) => {
             <td rowSpan={line.runners.length}>{oengusTimeToString(line.setupTime)}</td>
           </>
         )}
-        <td>{runner.usernameJapanese || runner.username}</td>
+        <td>{runner.displayName || runner.username}</td>
         <td>{connectionsToSocials(runner.connections).twitter || ''}</td>
         <td>{connectionsToSocials(runner.connections).nico || ''}</td>
         <td>{connectionsToSocials(runner.connections).twitch || ''}</td>
