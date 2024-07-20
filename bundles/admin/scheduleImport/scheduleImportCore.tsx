@@ -1,10 +1,11 @@
+import React, { useEffect, useState } from 'react';
+import _ from 'lodash';
 import moment from 'moment';
 import { OengusRunLine, OengusSchedule, OengusSetupLine, OengusUser } from 'oengus-api';
-import React, { useState } from 'react';
+import { OengusOtherLine } from 'oengus-api/dist/types';
 import { Model, Run, Runner } from '../../common/Models';
 import HTTPUtil from '../../public/util/http';
 import Endpoints from '../../tracker/Endpoints';
-import _ from 'lodash';
 import { EventModel } from './scheduleImport';
 
 type Props = {
@@ -16,7 +17,21 @@ export const ScheduleImportCore = ({ event, schedule }: Props) => {
   const [process, setProcess] = useState<'before' | 'runners' | 'schedules' | 'done'>('before');
   const [imported, setImported] = useState<number>(0);
 
-  const makeRun = (line: OengusRunLine | OengusSetupLine, index: number): Run => {
+  const [trackerRuns, setTrackerRuns] = useState<Run[]>([]);
+
+  useEffect(() => {
+    const url = Endpoints.SEARCH;
+
+    HTTPUtil.get(url, {
+      type: 'run',
+      event: event.pk,
+    }).then(runs => {
+      console.log(runs);
+      setTrackerRuns(runs as Run[]);
+    });
+  }, [event.pk]);
+
+  const makeRun = (line: OengusRunLine | OengusSetupLine | OengusOtherLine, index: number): Run => {
     return {
       pk: -1,
       model: 'tracker.speedrun',
@@ -47,7 +62,7 @@ export const ScheduleImportCore = ({ event, schedule }: Props) => {
         model: 'tracker.runner',
         canReorder: false,
         fields: {
-          name: runner.usernameJapanese || runner.username,
+          name: runner.displayName || runner.username,
           twitter: runner.connections.find(conn => conn.platform === 'TWITTER')?.username,
           twitch: runner.connections.find(conn => conn.platform === 'TWITCH')?.username,
           nico: runner.connections.find(conn => conn.platform === 'NICO')?.username,
@@ -64,10 +79,16 @@ export const ScheduleImportCore = ({ event, schedule }: Props) => {
 
     const response = (await HTTPUtil.get(url, {
       type: 'runner',
-      name: runner.usernameJapanese || runner.username,
+      name: runner.displayName || runner.username,
     })) as Runner[];
 
     return response.length !== 0 ? response[0] : null;
+  };
+
+  const findRun = (index: number): Run | null => {
+    const exists = trackerRuns.find(run => run.fields.order === index + 1);
+
+    return exists || null;
   };
 
   const saveModel = (model: Model, type: string) => {
@@ -129,8 +150,12 @@ export const ScheduleImportCore = ({ event, schedule }: Props) => {
         }
         setImported(0);
         setProcess('schedules');
-        const runPromises = schedule.lines.map((line, index) => {
+        const runPromises = schedule.lines.map(async (line, index) => {
           const run = makeRun(line, index);
+          const exists = findRun(index);
+          if (exists) {
+            run.pk = exists.pk;
+          }
           const fields = Object.assign(run.fields, {
             run_time: `${run.fields.run_time.hours()}:${run.fields.run_time
               .minutes()
