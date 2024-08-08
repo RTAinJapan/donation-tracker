@@ -11,7 +11,7 @@ type Props = {
 export const ScheduleImportTable = ({ schedule }: Props) => {
   const runHeaders = ['game', 'category', 'console', 'estimate', 'setup'] as const;
 
-  const runnerHeaders = ['name', 'twitter', 'nico', 'twitch', 'pronouns'] as const;
+  const runnerHeaders = ['name', 'twitter', 'nico', 'twitch', 'youtube', 'pronouns'] as const;
 
   const connectionsToSocials = (
     connections: OengusConnection[],
@@ -55,6 +55,7 @@ export const ScheduleImportTable = ({ schedule }: Props) => {
         <td>{connectionsToSocials(runner.connections).twitter || ''}</td>
         <td>{connectionsToSocials(runner.connections).nico || ''}</td>
         <td>{connectionsToSocials(runner.connections).twitch || ''}</td>
+        <td>{connectionsToSocials(runner.connections).youtube || ''}</td>
         <td>{runner.pronouns}</td>
       </tr>
     ));
