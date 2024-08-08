@@ -67,6 +67,7 @@ export const ScheduleImportCore = ({ event, schedule }: Props) => {
           twitter: runner.connections.find(conn => conn.platform === 'TWITTER')?.username,
           twitch: runner.connections.find(conn => conn.platform === 'TWITCH')?.username,
           nico: runner.connections.find(conn => conn.platform === 'NICO')?.username,
+          youtube: runner.connections.find(conn => (conn.platform as string) === 'YOUTUBE')?.username,
           platform: 'TWITCH',
           pronouns: runner.pronouns,
         },
