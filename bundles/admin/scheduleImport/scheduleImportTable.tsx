@@ -19,11 +19,13 @@ export const ScheduleImportTable = ({ schedule }: Props) => {
     twitter?: string;
     nico?: string;
     twitch?: string;
+    youtube?: string;
   } => {
     return {
       twitter: connections.find(conn => conn.platform === 'TWITTER')?.username,
       nico: connections.find(conn => conn.platform === 'NICO')?.username,
       twitch: connections.find(conn => conn.platform === 'TWITCH')?.username,
+      youtube: connections.find(conn => conn.platform as string === 'YOUTUBE')?.username,
     };
   };
 
