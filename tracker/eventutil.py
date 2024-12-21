@@ -59,6 +59,6 @@ def post_donation_to_postbacks(donation):
 
 
 def make_paypal_return_url(donation: models.Donation):
-    if donation.event.receivertype == 'msf2021' and donation.amount >= 1000:
-        return reverse('tracker:paypal_return_msf2024s')
+    if donation.event.receivertype == 'msf2021':
+        return reverse('tracker:paypal_return_msf2024w')
     return reverse('tracker:paypal_return')
