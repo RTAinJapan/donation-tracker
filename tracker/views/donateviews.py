@@ -53,7 +53,7 @@ def paypal_return_msf2022w(request):
 @csrf_exempt
 def paypal_return_msf2023s(request):
     return views_common.tracker_response(request, 'tracker/paypal_return_msf2023s.html')
-    
+
 @csrf_exempt
 def paypal_return_msf2023w(request):
     return views_common.tracker_response(request, 'tracker/paypal_return_msf2023w.html')
@@ -61,6 +61,10 @@ def paypal_return_msf2023w(request):
 @csrf_exempt
 def paypal_return_msf2024s(request):
     return views_common.tracker_response(request, 'tracker/paypal_return_msf2024s.html')
+
+@csrf_exempt
+def paypal_return_msf2024w(request):
+    return views_common.tracker_response(request, 'tracker/paypal_return_msf2024w.html')
 
 def _get_donation_event_fields(donation):
     has_comment = donation.comment is not None and donation.comment.strip() != ''
