@@ -66,6 +66,10 @@ def paypal_return_msf2024s(request):
 def paypal_return_msf2024w(request):
     return views_common.tracker_response(request, 'tracker/paypal_return_msf2024w.html')
 
+@csrf_exempt
+def paypal_return_msf2025s(request):
+    return views_common.tracker_response(request, 'tracker/paypal_return_msf2025s.html')
+
 def _get_donation_event_fields(donation):
     has_comment = donation.comment is not None and donation.comment.strip() != ''
     return {

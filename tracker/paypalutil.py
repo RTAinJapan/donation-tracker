@@ -203,7 +203,7 @@ def initialize_paypal_donation(ipnObj):
                 event=donation.event,
             )
     else:
-        donation.transactionstate = 'FLAGGED'
+        donation.transactionstate = 'FLAGGED' if not donation.transactionstate == 'COMPLETED' else 'COMPLETED'
         viewutil.tracker_log(
             'paypal',
             'IPN object flagged for donation {0} ({1})'.format(
