@@ -3,7 +3,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import { OengusRunLine, OengusSchedule, OengusSetupLine, OengusUser } from 'oengus-api';
 import { OengusOtherLine } from 'oengus-api/dist/types';
-
 import { Model, Run, Runner } from '../../common/Models';
 import HTTPUtil from '../../public/util/http';
 import Endpoints from '../../tracker/Endpoints';
